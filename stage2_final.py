@@ -6,7 +6,7 @@
 
 
 def IsCorrect(answer, capital):
-    """Return true if player's response is correct."""
+    """Return true if player's answer matches the input capital."""
     if answer == capital:
         return True
     return False
@@ -15,7 +15,7 @@ def IsCorrect(answer, capital):
 sentence = " "
 
 def CorrectedSentence(sentence, blank, capital):
-    """Return corrected sentence replacing blank with capital."""
+    """Return corrected sentence replacing the input blank with the input capital."""
     sentence = sentence.replace(blank, capital)
     return sentence
 
@@ -25,59 +25,63 @@ answer = 'nada'
 
 
 def play_level(sentence, blank, answer, capital):
-    """Print corrected sentence for each blank if player answers correctly or after three tries."""
+    """Print corrected sentence for each input blank if player's answer matches the variable capital or after three attempts."""
     print sentence
     i = 0
     for number in blank:
         answer = raw_input("Which city is " + str(i+1) +"? ").title()
-        t = 1
-        while IsCorrect(answer, capital[i]) == False and t < 3:
+        attempt = 1
+        while IsCorrect(answer, capital[i]) == False and attempt < 3:
             print "Try again."
             answer = raw_input("Which city is " + str(i+1) +"? ").title()
-            t += 1
-        if IsCorrect(answer, capital[i]) == True or t >= 3:
+            attempt += 1
+        if IsCorrect(answer, capital[i]) == True or attempt >= 3:
             sentence = CorrectedSentence(sentence, number, capital[i])
             print sentence
         i += 1
     return "Thank you for playing."
 
+easy_capital = ['Tokyo', 'London', 'Moscow', 'Beijing']
+medium_capital = ['Ottawa', 'Jakarta', 'Canberra', 'Brasilia']
+hard_capital = ['Abuja','Tallinn','Tegucigalpa','Tashkent']
 
 def ChooseLevel_Capital(level):
-    """Return correct answers used for comparing player's answers based on chosen level of difficulty."""
+    """Return correct answers when player inputs level."""
     if level == 'easy':
-        capital = ['Tokyo', 'London', 'Moscow', 'Beijing']
+        capital = easy_capital
     elif level == 'medium':
-        capital = ['Ottawa', 'Jakarta', 'Canberra', 'Brasilia']
+        capital = medium_capital
     elif level == 'hard':
-        capital = ['Abuja','Tallinn','Tegucigalpa','Tashkent']
+        capital = hard_capital
     else:
-        capital = ['Tokyo', 'London', 'Moscow', 'Beijing']
+        capital = easy_capital
     return capital
 
+easy_sentence = """ ___1___, the capital of Japan, is the world's largest metropolitan area.
+The capital of Great Britain, ___2___, is also the first city to host the modern Summer Olympic games three times.
+The capital of Russia is ___3___, although at one point before the Russian Revolution of 1917, it had been Saint Petersburg.
+The name ___4___, the capital of China, means "Northern Capital", and is meant to distinguish it from Nanjing, the "Southern Capital" during the Ming Dynasty."""
+
+medium_sentence = """Many Americans do not know that the capital of their northern neighbor Canada is ___1___.
+___2___, the capital of Indonesia, is nicknamed "the Big Durian", aka the New York City (the Big Apple) of Indonesia.
+Many outside Australia think that its capital is Sydney or Melbourne, but it is actually ___3___.
+In 1960, ___4___ became the capital of Brazil; it is a planned city founded specifically for this purpose."""
+
+hard_sentence = """The capital of Nigeria is ___1___ since 1991 and the city was built specifically for that purpose.
+___2___, the capital of Estonia, boasts the highest number of startups per person in Europe.
+If you're visiting ___3___, the capital of Honduras, be forewarned that it has what is considered one of the most difficult airports in the world to land a plane.
+The capital of Uzbekistan, ___4___, was destroyed by Genghis Khan in 1219 but rebuilt and prospered from the Silk Road."""
 
 def ChooseLevel_Sentence(level):
-    """Return fill-in-the-blank quiz to ask player based on chosen level of difficulty.  Choose easy level if level chosen is not understood."""
+    """Return fill-in-the-blank quiz when player inputs level of difficulty.  Choose easy level if level chosen is not understood."""
     if level == 'easy':
-        sentence = """ ___1___, the capital of Japan, is the world's largest metropolitan area.
-        The capital of Great Britain, ___2___, is also the first city to host the modern Summer Olympic games three times.
-        The capital of Russia is ___3___, although at one point before the Russian Revolution of 1917, it had been Saint Petersburg.
-        The name ___4___, the capital of China, means "Northern Capital", and is meant to distinguish it from Nanjing, the "Southern Capital" during the Ming Dynasty."""
+        sentence = easy_sentence
     elif level == 'medium':
-        sentence = """Many Americans do not know that the capital of their northern neighbor Canada is ___1___.
-        ___2___, the capital of Indonesia, is nicknamed "the Big Durian", aka the New York City (the Big Apple) of Indonesia.
-        Many outside Australia think that its capital is Sydney or Melbourne, but it is actually ___3___.
-        In 1960, ___4___ became the capital of Brazil; it is a planned city founded specifically for this purpose."""
+        sentence = medium_sentence
     elif level == 'hard':
-        sentence = """The capital of Nigeria is ___1___ since 1991 and the city was built specifically for that purpose.
-        ___2___, the capital of Estonia, boasts the highest number of startups per person in Europe.
-        If you're visiting ___3___, the capital of Honduras, be forewarned that it has what is considered one of the most difficult airports in the world to land a plane.
-        The capital of Uzbekistan, ___4___, was destroyed by Genghis Khan in 1219 but rebuilt and prospered from the Silk Road."""
+        sentence = hard_sentence
     else:
-        sentence = """We'll start with the EASY level.
-        ___1___, the capital of Japan, is the world's largest metropolitan area.
-        The capital of Great Britain, ___2___, is also the first city to host the modern Summer Olympic games three times.
-        The capital of Russia is ___3___, although at one point before the Russian Revolution of 1917, it had been Saint Petersburg.
-        The name ___4___, the capital of China, means "Northern Capital", and is meant to distinguish it from Nanjing, the "Southern Capital" during the Ming Dynasty."""
+        sentence = "We'll start with the EASY level." + easy_sentence
     return sentence
 
 
